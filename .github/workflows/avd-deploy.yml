@@ -22,30 +22,40 @@ on:
 
 jobs:
   terraform:
-    name: “Terraform Apply for AVD”
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
 
+      - name: Debug: Mostrar contenido del repositorio
+        run: |
+          echo "=== Directorio de trabajo ==="
+          pwd
+          echo "=== Listado recursivo de archivos ==="
+          ls -R .
+
       - name: Set up Terraform
         uses: hashicorp/setup-terraform@v2
         with:
-          terraform_version: “1.3.6”   # O la versión que prefieras
+          terraform_version: "1.3.6"
 
       - name: Login to Azure
         uses: azure/login@v1
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      - name: Terraform Init
-        working-directory: “./”
+      - name: Debug: Comprobar variables de entorno de Azure
         run: |
-          terraform init -input=false
+          echo "ARM_CLIENT_ID=$ARM_CLIENT_ID"
+          echo "ARM_SUBSCRIPTION_ID=$ARM_SUBSCRIPTION_ID"
+          echo "ARM_TENANT_ID=$ARM_TENANT_ID"
+          # No mostramos ARM_CLIENT_SECRET por seguridad
+
+      - name: Terraform Init
+        run: terraform init -input=false
 
       - name: Terraform Plan
-        working-directory: “./”
         run: |
           terraform plan \
             -input=false \
@@ -55,7 +65,13 @@ jobs:
             -var="user_upns=${{ github.event.inputs.user_upns }}" \
             -out=tfplan
 
-      - name: Terraform Apply
-        working-directory: “./”
+      - name: Debug: Mostrar el plan
+        if: always()
         run: |
-          terraform apply -input=false -auto-approve tfplan
+          terraform show -json tfplan > plan.json
+          echo "=== Resumen del plan (terraform show) ==="
+          terraform show tfplan
+
+      - name: Terraform Apply
+        if: success()
+        run: terraform apply -input=false -auto-approve tfplan
