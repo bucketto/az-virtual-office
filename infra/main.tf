@@ -124,7 +124,9 @@ resource "azurerm_virtual_desktop_workspace_application_group_association" "asso
 ################################################################################
 
 data "azuread_user" "lookup_user" {
-  for_each            = toset(var.user_upns)
+  # Si user_upns está vacío, usamos un set vacío ({}).
+  # Si viene uno o varios UPNs separados por comas, hacemos split() y luego toset()
+  for_each = var.user_upns == "" ? toset([]) : toset(split(",", var.user_upns))                         
   user_principal_name = each.value
 }
 
@@ -137,6 +139,11 @@ resource "azurerm_role_assignment" "avd_user_role" {
   scope                = azurerm_virtual_desktop_application_group.appgroup.id
   role_definition_name = "Desktop Virtualization User"
   principal_id         = each.value.object_id
+
+  # Opcional: asegurarse de no crear el role assignment antes que el appgroup
+  depends_on = [
+    azurerm_virtual_desktop_application_group.appgroup
+  ]
 }
 
 ################################################################################
