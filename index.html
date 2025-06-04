@@ -51,14 +51,14 @@
       });
 
       // Parámetros para invocar GitHub Actions
-      const owner = '<TU_USUARIO>';        // Cambiar
-      const repo  = '<TU_REPOSITORIO>';    // Cambiar
+      const owner = '${{ env.USUARIO }}';        // Cambiar
+      const repo  = '${{ env.REPOSITORIO }}';    // Cambiar
       const workflow_id = 'avd-deploy.yml'; // Asegúrate de que coincide con el nombre real del workflow
       const ref = 'main';
 
       // Importante: NO incrustes un token en HTML visible públicamente.
       // Usa un backend intermedio (Azure Function, Lambda, GitHub App) para ocultar el token al usuario.
-      const GITHUB_TOKEN = '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'; // NO lo publiques
+      const GITHUB_TOKEN = '${{ secrets.TERRAFORM }}'; // NO lo publiques
 
       try {
         const response = await fetch(
@@ -66,9 +66,10 @@
           {
             method: 'POST',
             headers: {
-              'Accept': 'application/vnd.github.v3+json',
+              'Accept': 'application/vnd.github+json',
+              'X-GitHub-Api-Version': '2022-11-28',
               'Content-Type': 'application/json',
-              'Authorization': 'Bearer ' + GITHUB_TOKEN
+              'Authorization': 'token ' + GITHUB_TOKEN
             },
             body: JSON.stringify({ ref, inputs })
           }
