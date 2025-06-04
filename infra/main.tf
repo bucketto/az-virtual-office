@@ -180,7 +180,7 @@ resource "random_password" "admin_pass" {
 
 resource "azurerm_windows_virtual_machine" "session_host" {
   count               = local.session_hosts_count
-  name                = "${var.host_pool_name}-host-${count.index + 1}"
+  name                = "${var.host_pool_name}-${count.index + 1}"
   resource_group_name = azurerm_resource_group.rg.name
   location            = azurerm_resource_group.rg.location
   size                = "Standard_D2s_v3"
@@ -197,7 +197,7 @@ resource "azurerm_windows_virtual_machine" "session_host" {
   source_image_reference {
     publisher = "MicrosoftWindowsDesktop"
     offer     = "Windows-10"
-    sku       = "21h2-multisession"
+    sku       = "win10-22h2-ent-g2"
     version   = "latest"
   }
 
