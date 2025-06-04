@@ -2,6 +2,7 @@
 variable "subscription_id" {
   type        = string
   description = "ID de la suscripción de Azure"
+  default     = "029f2df1-d292-4599-bcf2-03631b90c998"  # <— tu Subscription ID aquí
 }
 
 # POST form variables
