@@ -1,3 +1,9 @@
+# Subscription id para terraform
+variable "subscription_id" {
+  type        = string
+  description = "ID de la suscripción de Azure"
+}
+
 # POST form variables
 
 variable "resource_group_name" {
