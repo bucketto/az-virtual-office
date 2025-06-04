@@ -51,8 +51,8 @@
       });
 
       // Parámetros para invocar GitHub Actions
-      const owner = '${{ secrets.USUARIO }}';        // Cambiar
-      const repo  = '${{ secrets.REPOSITORIO }}';    // Cambiar
+      const owner = '${{ env.USUARIO }}';        // Cambiar
+      const repo  = '${{ env.REPOSITORIO }}';    // Cambiar
       const workflow_id = 'avd-deploy.yml'; // Asegúrate de que coincide con el nombre real del workflow
       const ref = 'main';
 
