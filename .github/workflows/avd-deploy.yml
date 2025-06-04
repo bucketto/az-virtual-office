@@ -23,6 +23,7 @@ on:
 jobs:
   terraform:
     runs-on: ubuntu-latest
+    enviroment: github-pages
 
     steps:
       - name: Checkout repository
