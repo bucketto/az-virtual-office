@@ -12,7 +12,8 @@ terraform {
 }
 
 provider "azurerm" {
-  features {}}
+  features {}
+}
 
 provider "azuread" {
 }
