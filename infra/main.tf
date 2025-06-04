@@ -12,17 +12,9 @@ terraform {
 }
 
 provider "azurerm" {
-  subscription_id = var.subscription_id
-  client_id = var.client_id
-  client_secret = var.client_secret
-  tenant_id = var.tenant_id
-  features {}
-}
+  features {}}
 
 provider "azuread" {
-  tenant_id = var.tenant_id
-  client_id = var.client_id
-  client_secret = var.client_secret
 }
 
 ################################################################################
@@ -34,7 +26,7 @@ resource "azurerm_resource_group" "rg" {
   location = "westeurope"
   tags = {
     Proyecto = "AVD"
-    Entorno  = "Producción"
+    Entorno  = "Produccion"
   }
 }
 

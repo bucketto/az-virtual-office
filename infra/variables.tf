@@ -1,25 +1,3 @@
-# GitHub secrets
-
-variable "subscription_id" {
-  type      = string
-  sensitive = true
-}
-
-variable "client_id" {
-  type = string
-  sensitive = true
-}
-
-variable "client_secret" {
-  type = string
-  sensitive = true
-}
-
-variable "tenant_id" {
-  type = string
-  sensitive = true
-}
-
 # POST form variables
 
 variable "resource_group_name" {
@@ -42,7 +20,7 @@ variable "total_users" {
 }
 
 variable "user_upns" {
-  description = "Lista de UPNs o grupos de Entra ID que tendrán acceso al Host Pool (array de strings)."
-  type        = list(string)
-  default     = []
+  type = string
+  description = "String con UPNs separados por comas, p.ej. \"user1@dominio.com,user2@dominio.com\""
+  default = ""
 }
