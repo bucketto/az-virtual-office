@@ -64,9 +64,11 @@ jobs:
           # No mostramos ARM_CLIENT_SECRET por seguridad
 
       - name: Terraform Init
+        working-directory: infra
         run: terraform init -input=false
 
       - name: Terraform Plan
+        working-directory: infra
         run: |
           terraform plan \
             -input=false \
@@ -78,9 +80,11 @@ jobs:
 
       - name: Debug Mostrar el plan
         if: always()
+        working-directory: infra
         run: |
           terraform show tfplan
 
       - name: Terraform Apply
         if: success()
+        working-directory: infra
         run: terraform apply -input=false -auto-approve tfplan
