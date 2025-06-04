@@ -45,7 +45,7 @@ jobs:
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      - name: Debug: Comprobar variables de entorno de Azure
+      - name: Debug Comprobar variables de entorno de Azure
         run: |
           echo "ARM_CLIENT_ID=$ARM_CLIENT_ID"
           echo "ARM_SUBSCRIPTION_ID=$ARM_SUBSCRIPTION_ID"
@@ -65,7 +65,7 @@ jobs:
             -var="user_upns=${{ github.event.inputs.user_upns }}" \
             -out=tfplan
 
-      - name: Debug: Mostrar el plan
+      - name: Debug Mostrar el plan
         if: always()
         run: |
           terraform show -json tfplan > plan.json
