@@ -28,7 +28,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Debug: Mostrar contenido del repositorio
+      - name: Debug Mostrar contenido del repositorio
         run: |
           echo "=== Directorio de trabajo ==="
           pwd
