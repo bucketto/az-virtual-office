@@ -51,25 +51,25 @@
       });
 
       // Parámetros para invocar GitHub Actions
-      const owner = '${{ env.USUARIO }}';        // Cambiar
-      const repo  = '${{ env.REPOSITORIO }}';    // Cambiar
+      const owner = 'bucketto';        // Cambiar
+      const repo  = 'https://github.com/bucketto/az-virtual-office/';    // Cambiar
       const workflow_id = 'avd-deploy.yml'; // Asegúrate de que coincide con el nombre real del workflow
       const ref = 'main';
 
       // Importante: NO incrustes un token en HTML visible públicamente.
       // Usa un backend intermedio (Azure Function, Lambda, GitHub App) para ocultar el token al usuario.
-      const GITHUB_TOKEN = '${{ secrets.TERRAFORM }}'; // NO lo publiques
+      const GITHUB_TOKEN = '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'; // NO lo publiques
 
       try {
         const response = await fetch(
-          `https://api.github.com/repos/${owner}/${repo}/actions/workflows/${workflow_id}/dispatches`,
+          `https://api.github.com/repos/bucketto/az-virtual-office/actions/workflows/avd-deploy/dispatches`,
           {
             method: 'POST',
             headers: {
               'Accept': 'application/vnd.github+json',
               'X-GitHub-Api-Version': '2022-11-28',
               'Content-Type': 'application/json',
-              'Authorization': 'token ' + GITHUB_TOKEN
+              'Authorization': 'token ' + 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
             },
             body: JSON.stringify({ ref, inputs })
           }
