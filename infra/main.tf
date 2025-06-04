@@ -13,13 +13,17 @@ terraform {
 
 provider "azurerm" {
   subscription_id = "029f2df1-d292-4599-bcf2-03631b90c998"
-  client_id = "8479007e-e751-4b6c-8f78-1c3e83ac5d0a"
+  client_id = "e10e11e2-5093-4370-8673-c6ba50122c34"
   client_secret = "9e.8QªGf6DYF2rrIVChGOHpEEGeI5nUjjIBKKdct"
   tenant_id = "83939939-5cc9-410f-a0c3-d5c7ea7c7be7"
   features {}
 }
 
-provider "azuread" {}
+provider "azuread" {
+  tenant_id = "83939939-5cc9-410f-a0c3-d5c7ea7c7be7"
+  client_id = "e10e11e2-5093-4370-8673-c6ba50122c34"
+  client_secret = "9e.8QªGf6DYF2rrIVChGOHpEEGeI5nUjjIBKKdct"
+}
 
 ################################################################################
 # 1. Resource Group
